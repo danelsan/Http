@@ -316,6 +316,8 @@ class Request implements IRequest {
 		$option[CURLOPT_CUSTOMREQUEST]	= "POST";
 		$option[CURLOPT_RETURNTRANSFER] = 1;
 		$option[CURLOPT_FOLLOWLOCATION] = $this->follow;
+		if ( $this->follow )
+			$option[CURLOPT_POSTREDIR]		= true;
 		$option[CURLOPT_HTTPHEADER]		= $this->getHeaders();
 		$option[CURLOPT_URL] 			= $this->url->get();
 		$option[CURLOPT_USERAGENT] 		= $this->agent;
