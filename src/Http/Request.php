@@ -15,6 +15,7 @@ class Request implements IRequest {
 // 	private $referrer;
 // 	private $remote_address;
 	private $validate = FALSE;
+	private $follow;
 	
 	/**
 	 * The url parameter is compresive of query string
@@ -22,6 +23,7 @@ class Request implements IRequest {
 	 * @param string $url        	
 	 */
 	public function __construct( $url, $method = 'GET') {
+		$this->follow = true;
 		$this->method = new Method($method);
 		$this->post = array ();
 		try {
@@ -36,6 +38,13 @@ class Request implements IRequest {
 		$this->body = '';
 		$this->proxy = NULL;
 		$this->setUrl ( $url );
+	}
+	
+	public function setFollow( $follow = true ) {
+		if ( $follow !== true )
+			$this->follow = false;
+		else
+			$this->follow = true;
 	}
 	
 	public static function create( $url, $method = 'GET') {
@@ -306,6 +315,7 @@ class Request implements IRequest {
 		$option = $this->getProxyOptions();
 		$option[CURLOPT_CUSTOMREQUEST]	= "POST";
 		$option[CURLOPT_RETURNTRANSFER] = 1;
+		$option[CURLOPT_FOLLOWLOCATION] = $this->follow;
 		$option[CURLOPT_HTTPHEADER]		= $this->getHeaders();
 		$option[CURLOPT_URL] 			= $this->url->get();
 		$option[CURLOPT_USERAGENT] 		= $this->agent;
