@@ -10,6 +10,7 @@ class Request implements IRequest {
 	private $proxy;
 // 	private $uploaded;
 // 	private $parsed_url;
+	private $files;
 	private $headers;
 	private $body;
 // 	private $referrer;
@@ -38,6 +39,7 @@ class Request implements IRequest {
 		$this->body = '';
 		$this->proxy = NULL;
 		$this->setUrl ( $url );
+		$this->files = array();
 	}
 	
 	public function setFollow( $follow = true ) {
@@ -52,6 +54,14 @@ class Request implements IRequest {
 		return $request;
 	}
 	
+	public function addFile( $name, $path ) {
+		if ( !in_array($path, $this->files ) && is_file($path) ) {
+			$finfo = new \finfo(FILEINFO_MIME);
+			$mime_type = $finfo->file($path);		
+			$this->files[$name] = array('path'=>$path,'mime'=>$mime_type);
+		}
+	}
+
 // 	/**
 // 	 * Create the request give from Server
 // 	 *
@@ -314,17 +324,36 @@ class Request implements IRequest {
 		$curl = \curl_init();
 		$option = $this->getProxyOptions();
 		$option[CURLOPT_CUSTOMREQUEST]	= "POST";
-		$option[CURLOPT_RETURNTRANSFER] = 1;
+		$option[CURLOPT_RETURNTRANSFER] = true;
+		$option[CURLOPT_VERBOSE] = 1;
 		$option[CURLOPT_FOLLOWLOCATION] = $this->follow;
 		if ( $this->follow )
 			$option[CURLOPT_POSTREDIR]		= true;
-		$option[CURLOPT_HTTPHEADER]		= $this->getHeaders();
 		$option[CURLOPT_URL] 			= $this->url->get();
+		$option[CURLOPT_POST]                   = true;
 		$option[CURLOPT_USERAGENT] 		= $this->agent;
 		$option[CURLOPT_HEADER]			= 1;
-		$option[CURLOPT_POSTFIELDS]		= http_build_query($this->getPosts());
+		if ( empty( $this->files ) ) {
+			// Send only posts
+			$option[CURLOPT_POSTFIELDS]		= http_build_query($this->getPosts());
+		}
+		else {
+			// Send post with files
+
+			$files = array();
+			foreach( $this->files as $key => $file ) {
+					$files[$key] = new \CURLFile( $file['path'], $file['mime'] ); 
+			}
+			if ( !empty( $this->getPosts() )) {
+				foreach( $this->getPosts() as $k=>$v ) {
+					$files[$k] = $v;
+				}
+			}
+			$option[CURLOPT_SAFE_UPLOAD] = false;
+			$option[CURLOPT_POSTFIELDS] =  $files ;
+		}
+
 		curl_setopt_array($curl, $option );
-		
 		// Send the request & save response to $resp
 		$response = curl_exec($curl);
 		$error = curl_error($curl);
