@@ -4,7 +4,7 @@ namespace Http;
 
 class HttpStatusCode  {
 	private $status;
-	const STATUS_CODE = array (
+	public static $status_code = array (
 		100 => "Continue",
 		101 => "Switching Protocols",
 		102 => "Processing",
@@ -84,7 +84,7 @@ class HttpStatusCode  {
 		$this->setStatus($status);
 	}
 	public function setStatus( $status ) {
-		if (array_key_exists($status, HttpStatusCode::STATUS_CODE ) )
+		if (array_key_exists($status, HttpStatusCode::$status_code ) )
 			$this->status = $status;
 		else
 			throw new \Exception("Status code not found");
@@ -95,6 +95,6 @@ class HttpStatusCode  {
 	}
 	
 	public function getStatus() {
-		return HttpStatusCode::STATUS_CODE[$this->status];
+		return HttpStatusCode::$status_code[$this->status];
 	}
 }
