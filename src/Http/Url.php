@@ -25,6 +25,11 @@ class Url implements IUrl {
 		$this->set ( $url );
 		$this->exceptionValidate();
 	}
+
+	public function removeQuery( $key ) {
+		if ( isset( $this->query[$key] ) )
+			unset $this->query[$key];
+	}
 	
 	/**
 	 * Set the url parameters

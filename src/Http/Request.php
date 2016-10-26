@@ -62,43 +62,10 @@ class Request implements IRequest {
 		}
 	}
 
-// 	/**
-// 	 * Create the request give from Server
-// 	 *
-// 	 * @return IRequest
-// 	 */
-// 	public static function createRequest() {
-// 		$url = "http://" . $_SERVER ['SERVER_NAME'] . $_SERVER ['REQUEST_URI'];
-		
-// 		$request = new Request ( $url );
-// 		if (isset ( $_SERVER ['HTTP_REFERRER'] ))
-// 			$request->setReferrer ( $_SERVER ['HTTP_REFERRER'] );
-		
-// 		$request->setRemoteAddress ( $_SERVER ['REMOTE_ADDR'] );
-// 		$request->setBody ( file_get_contents ( "php://input" ) );
-// 		$request->setMethod ( $_SERVER ['REQUEST_METHOD'] );
-		
-// 		if ($request->getMethod () !== 'POST') {
-// 			parse_str ( $request->getBody (), $post_vars );
-// 			$request->setPost ( $post_vars );
-// 		} else {
-// 			$request->setPost ( $_POST );
-// 		}
-		
-// 		foreach ( getallheaders () as $k => $v ) {
-// 			$request->addHeader ( $k, $v );
-// 		}
-// 		return $request;
-// 	}
-// 	public function setReferrer($referrer) {
-// 		$this->referrer = $referrer;
-// 	}
-// 	public function getReferrer() {
-// 		return $this->referrer;
-// 	}
-// 	public function setRemoteAddress($remoteAddress) {
-// 		$this->remote_address = $remoteAddress;
-// 	}
+	public function removeQuery( $key ) {
+		$this->url->removeQuery( $key );
+	}
+
 	public function setQuery($key, $value = NULL) {
 		$this->url->setQuery($key, $value);
 // 		if (is_array ( $key ) && ! $value) {
