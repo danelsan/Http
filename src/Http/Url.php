@@ -28,7 +28,7 @@ class Url implements IUrl {
 
 	public function removeQuery( $key ) {
 		if ( isset( $this->query[$key] ) )
-			unset $this->query[$key];
+			unset( $this->query[$key] );
 	}
 	
 	/**
