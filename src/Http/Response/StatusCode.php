@@ -90,7 +90,7 @@ class HttpStatusCode  {
 		if (array_key_exists($status, HttpStatusCode::$status_code ) )
 			$this->status = $status;
 		else
-			throw new \Exception("Status code not found");
+			throw new \Exception("Status code '$status' not found");
 	}
 	
 	public function getCode() {
