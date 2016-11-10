@@ -84,6 +84,9 @@ class HttpStatusCode  {
 		$this->setStatus($status);
 	}
 	public function setStatus( $status ) {
+		if ( !is_string($status) && !is_int($status) ) 
+			throw new \Exception("Status code invalid");
+
 		if (array_key_exists($status, HttpStatusCode::$status_code ) )
 			$this->status = $status;
 		else

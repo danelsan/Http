@@ -1,5 +1,7 @@
 <?php
 use Http\Response;
+use Http\HttpStatusCode;
+
 class ResponseTest extends PHPUnit_Framework_TestCase {
 	private $response;
 	public function setUp() {
@@ -42,5 +44,25 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals ( $response->getHeaders (), array (
 				'Auth' => 'author_change' 
 		) );
+	}
+
+	public function testStatus() {
+		$response = new Response('body','200');
+
+		$status = $response->getStatus()->getCode();
+		$this->assertEquals ( $response->getStatus ()->getCode(), 200 );	
+	}
+
+	public function testHttpStatusCode() {
+		$status = new HttpStatusCode('200');
+		$this->assertEquals ( $status->getCode (), 200 );
+		
+		try {	
+			$status = new HttpStatusCode( array(200));
+        	        $result = false;
+		} catch ( \Exception $e ) {
+			$result = true;
+		}
+		$this->assertTrue( $result );
 	}
 }
