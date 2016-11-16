@@ -138,9 +138,14 @@ class Request implements IRequest {
 		$this->body = $body;
 	}
 	public function getHeaders() {
-		return $this->headers;
+		$r = array();
+		foreach( $this->headers as $k=>$v) {
+			$r[] = "$k: $v";
+		}
+		return $r;
 	}
 	public function addHeader( $code,  $value) {
+		$code = ucfirst( strtolower($code) );
 		$this->headers [$code] = $value;
 	}
 	public function setProxy( $url ) {
@@ -190,6 +195,8 @@ class Request implements IRequest {
 		$option[CURLOPT_URL] 			= $this->url->get();
 		$option[CURLOPT_USERAGENT] 		= $this->agent;
 		$option[CURLOPT_HEADER]			= 1;
+		$option[CURLOPT_HTTPHEADER]		= $this->getHeaders();
+
 		
 		if ( !empty( $this->getPosts() ) ) {
 			$data = $this->getPosts();
@@ -300,6 +307,8 @@ class Request implements IRequest {
 		$option[CURLOPT_POST]                   = true;
 		$option[CURLOPT_USERAGENT] 		= $this->agent;
 		$option[CURLOPT_HEADER]			= 1;
+		$option[CURLOPT_HTTPHEADER]		= $this->getHeaders();
+
 		if ( empty( $this->files ) ) {
 			// Send only posts
 			$option[CURLOPT_POSTFIELDS]		= http_build_query($this->getPosts());
