@@ -27,7 +27,9 @@ class Response implements IResponse {
 		return $this->body;
 	}
 	public function setBody( $body ) {
-		if ( !is_null($body) && !is_string($body) )
+		if ( is_null($body) || is_bool($body) )
+			$body = '';
+		if ( !is_string($body) )
 			throw new \Exception("Body is not a string");
 		$this->body = $body;
 	}
