@@ -22,7 +22,10 @@ class ResponseAbstract implements IResponse {
 		$this->status = new HttpStatusCode( $status );
 	}
 	public function getStatus() {
-		return $this->status;
+		return $this->status->getStatus();
+	}
+	public function getStatusCode() {
+		return $this->status->getCode();
 	}
 	public function getBody() {
 		return $this->body;
