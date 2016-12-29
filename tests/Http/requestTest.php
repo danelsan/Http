@@ -1,5 +1,6 @@
 <?php
 use Http\Request;
+
 class RequestTest extends PHPUnit_Framework_TestCase {
 	private $request;
 	public function setUp() {
@@ -13,7 +14,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	}
 	
 	public function testRequestCreate() {
-		$request = Request::create('http://pippo.it/pollo?p=o&c=4');
+		$request = Request::Http('http://pippo.it/pollo?p=o&c=4');
 		$this->assertEquals ( $request->getMethod(), 'GET' );
 		$this->assertEquals ( $request->getQueries(), array('p'=>'o','c'=>4) );
 	}
@@ -36,7 +37,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 		$url ['valid'] = "http://www.example.com?pippo=d&o=pil";
 		$url ['fail'] = NULL;
 		try {
-			$request = new Request ();
+			$request = Request::Http ();
 			$fail = TRUE;
 		} catch ( \Exception $e ) {
 			$fail = FALSE;
@@ -44,7 +45,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse ( $fail );
 		
 		try {
-			$request = new Request ( $url ['valid'] );
+			$request = Request::Http ( $url ['valid'] );
 			$this->assertTrue ( true );
 		} catch ( \Exception $e ) {
 			$this->fail ( 'Expected exception Missing argument 1 for Http\Request::__construct()' );
@@ -66,7 +67,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 		$url = "http://www.example.com?pippo=d&o=pil";
 		$u="http://www.example.com";
 		$q=array('pippo'=>'d','o'=>'pil');
-		$request = new Request ( $url );
+		$request = Request::Http ( $url );
 		$this->assertEquals ( $request->getUrl (), $url );
 		$this->assertEquals ( $request->getQueries(), $q );
 	}	
