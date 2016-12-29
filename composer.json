@@ -1,8 +1,8 @@
 {
 	"name": "danelsan/http",
-	"version": "1.0.0",
+	"version": "1.0.1",
  	"license": "GPL-3.0+",
-	"description": "Http Protocol for sendig a Request",
+	"description": "Http Protocol for get a Request or sending a Response",
 	"autoload": {
    		"classmap": ["src/"]
     	}	
