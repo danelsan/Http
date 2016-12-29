@@ -230,7 +230,7 @@ class Request implements IRequest {
 		$header = http_parse_headers(substr( $response, 0, $header_size) );
 		$body = substr($response, $header_size);
 		$status = $info['http_code']; 
-		return  ( new Response($body,$status,$header) );
+		return  ( Response::Http($body,$status,$header) );
 
 	}
 	
@@ -261,7 +261,7 @@ class Request implements IRequest {
 				$header = http_parse_headers(substr( $response, 0, $header_size) );
 				$body = substr($response, $header_size);
 				$status = $info['http_code'];
-				return  ( new Response($body,$status,$header) );
+				return  ( Response::Http($body,$status,$header) );
 	}
 	
 	private function deleteSend() {
@@ -291,7 +291,7 @@ class Request implements IRequest {
 				$header = http_parse_headers(substr( $response, 0, $header_size) );
 				$body = substr($response, $header_size);
 				$status = $info['http_code'];
-				return  ( new Response($body,$status,$header) );
+				return  ( Response::Http($body,$status,$header) );
 	}
 	
 	private function postSend() {
@@ -345,7 +345,7 @@ class Request implements IRequest {
 				$header = http_parse_headers(substr( $response, 0, $header_size) );
 				$body = substr($response, $header_size);
 				$status = $info['http_code'];
-				return  ( new Response($body,$status,$header) );
+				return  ( Response::Http($body,$status,$header) );
 	}
 	
 	/**

@@ -2,7 +2,7 @@
 
 namespace Http;
 
-class ResponseFile extends Response {
+class ResponseFile extends ResponseAbstract {
 	
 	private $path;
 	

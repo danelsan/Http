@@ -1,13 +1,13 @@
 <?php
 
-use Http\ResponseJson;
+use Http\Response;
 
 class ResponseJsonTest extends PHPUnit_Framework_TestCase {
 	private $response;
 	public function setUp() {
 	}
 	public function testResponseConstruct() {
-		$response = new ResponseJson();
+		$response = Response::Json();
 		$true =  $response->getStatus () instanceof Http\HttpStatusCode ;
 		$this->assertTrue ( $true );
 		$this->assertEquals ( $response->getStatus ()->getCode(), 200);
@@ -15,7 +15,8 @@ class ResponseJsonTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals ( $response->getHeaders (), array ('Content-Type'=>'application/json') );
 	}
 	public function testResponseSetBody() {
-		$response = new ResponseJson ( 'Body', 404 );
+		$response = Response::Json ( 'Body' );
+		$response->setStatus(404);
 		$this->assertEquals ( $response->getStatus ()->getCode(), 404 );
 		$this->assertEquals ( $response->getBody (), json_encode('Body') );
 	

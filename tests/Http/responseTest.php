@@ -1,4 +1,5 @@
 <?php
+
 use Http\Response;
 use Http\HttpStatusCode;
 
@@ -7,7 +8,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 	}
 	public function testResponseConstruct() {
-		$response = new Response ();
+		$response = Response::Http ();
 		$true =  $response->getStatus () instanceof Http\HttpStatusCode ;
 		$this->assertTrue ( $true );
 		$this->assertEquals ( $response->getStatus ()->getCode(), 200);
@@ -15,7 +16,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals ( $response->getHeaders (), array () );
 	}
 	public function testResponseChangeBody() {
-		$response = new Response ( 'Body', 404 );
+		$response = Response::Http ( 'Body', 404 );
 		$this->assertEquals ( $response->getStatus ()->getCode(), 404 );
 		$this->assertEquals ( $response->getBody (), 'Body' );
 		$response->setBody ( 'BB' );
@@ -24,7 +25,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals ( $response->getHeaders (), array () );
 	}
 	public function testResponseChangeStatus() {
-		$response = new Response ( 'Body', 404 );
+		$response = Response::Http ( 'Body', 404 );
 		$this->assertEquals ( $response->getStatus ()->getCode(), 404 );
 		$this->assertEquals ( $response->getBody (), 'Body' );
 		$response->setStatus ( 200 );
@@ -32,7 +33,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals ( $response->getHeaders (), array () );
 	}
 	public function testResponseChangeHeaders() {
-		$response = new Response ( 'Body', 404 );
+		$response =  Response::Http ( 'Body', 404 );
 		$this->assertEquals ( $response->getStatus ()->getCode(), 404 );
 		$this->assertEquals ( $response->getBody (), 'Body' );
 		$response->addHeader ( 'Auth', 'author' );
@@ -47,7 +48,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testStatus() {
-		$response = new Response('body','200');
+		$response = Response::Http('body','200');
 
 		$status = $response->getStatus()->getCode();
 		$this->assertEquals ( $response->getStatus ()->getCode(), 200 );	

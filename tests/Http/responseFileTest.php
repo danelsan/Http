@@ -1,6 +1,6 @@
 <?php
 
-use Http\ResponseFile;
+use Http\Response;
 
 class ResponseFileTest extends PHPUnit_Framework_TestCase {
 	private $response;
@@ -11,14 +11,14 @@ class ResponseFileTest extends PHPUnit_Framework_TestCase {
 	}
 	
 	public function testResponseConstruct() {
-		$response = new ResponseFile( 'people.txt' );
+		$response = Response::File( 'people.txt' );
 		$this->assertEquals ( $response->isFile(), true );
-		$response = new ResponseFile( 'people.tx' );
+		$response = Response::File( 'people.tx' );
 		$this->assertEquals ( $response->isFile(), false );
 		
 	}
 	public function testResponseSetBody() {
-		$response = new ResponseFile( 'people.txt' );
+		$response = Response::File( 'people.txt' );
 		
 		ob_start();
 		@$response->send();

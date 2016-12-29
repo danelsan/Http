@@ -2,7 +2,7 @@
 
 namespace Http;
 
-class ResponseJson extends Response {
+class ResponseJson extends ResponseAbstract {
 		
 	public function __construct( $data = array(), $status = 200 ) {
 		parent::__construct( $data , $status );
