@@ -40,7 +40,7 @@ class ResponseAbstract implements IResponse {
 		$this->headers[$code] = $value;
 	}
 	public function send() {
-		$str = 'HTTP/1.1 '.$this->getStatus()->getCode(). ' ' . $this->getStatus()->getStatus();
+		$str = 'HTTP/1.1 '.$this->getStatusCode(). ' ' . $this->getStatus();
 		header($str);
 		foreach ( $this->getHeaders () as $k => $v ) {
 			header ( $k . ': ' . $v );

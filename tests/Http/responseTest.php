@@ -9,15 +9,15 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 	}
 	public function testResponseConstruct() {
 		$response = Response::Http ();
-		$true =  $response->getStatus () instanceof Http\HttpStatusCode ;
+		$true =  is_string( $response->getStatus () );
 		$this->assertTrue ( $true );
-		$this->assertEquals ( $response->getStatus ()->getCode(), 200);
+		$this->assertEquals ( $response->getStatusCode (), 200);
 		$this->assertEquals ( $response->getBody (), '' );
 		$this->assertEquals ( $response->getHeaders (), array () );
 	}
 	public function testResponseChangeBody() {
 		$response = Response::Http ( 'Body', 404 );
-		$this->assertEquals ( $response->getStatus ()->getCode(), 404 );
+		$this->assertEquals ( $response->getStatusCode (), 404 );
 		$this->assertEquals ( $response->getBody (), 'Body' );
 		$response->setBody ( 'BB' );
 		$this->assertEquals ( $response->getBody (), 'BB' );
@@ -26,18 +26,18 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 	}
 	public function testResponseChangeStatus() {
 		$response = Response::Http ( 'Body', 404 );
-		$this->assertEquals ( $response->getStatus ()->getCode(), 404 );
+		$this->assertEquals ( $response->getStatusCode (), 404 );
 		$this->assertEquals ( $response->getBody (), 'Body' );
 		$response->setStatus ( 200 );
-		$this->assertEquals ( $response->getStatus ()->getCode(), 200 );
+		$this->assertEquals ( $response->getStatusCode (), 200 );
 		$this->assertEquals ( $response->getHeaders (), array () );
 	}
 	public function testResponseChangeHeaders() {
 		$response =  Response::Http ( 'Body', 404 );
-		$this->assertEquals ( $response->getStatus ()->getCode(), 404 );
+		$this->assertEquals ( $response->getStatusCode(), 404 );
 		$this->assertEquals ( $response->getBody (), 'Body' );
 		$response->addHeader ( 'Auth', 'author' );
-		$this->assertEquals ( $response->getStatus ()->getCode(), 404 );
+		$this->assertEquals ( $response->getStatusCode (), 404 );
 		$this->assertEquals ( $response->getHeaders (), array (
 				'Auth' => 'author' 
 		) );
@@ -50,8 +50,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 	public function testStatus() {
 		$response = Response::Http('body','200');
 
-		$status = $response->getStatus()->getCode();
-		$this->assertEquals ( $response->getStatus ()->getCode(), 200 );	
+		$status = $response->getStatusCode();
+		$this->assertEquals ( $response->getStatusCode (), 200 );	
 	}
 
 	public function testHttpStatusCode() {

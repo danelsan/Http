@@ -197,9 +197,9 @@ class RequestAbstract implements IRequest {
 		$option[CURLOPT_HEADER]			= 1;
 		$option[CURLOPT_HTTPHEADER]		= $this->getHeaders();
 
-		
-		if ( !empty( $this->getPosts() ) ) {
-			$data = $this->getPosts();
+		$posts = $this->getPosts();
+		if ( !empty( $posts ) ) {
+			$data = $posts;
 			$option[CURLOPT_POSTFIELDS]	= http_build_query( $data );
 // 			$option[CURLOPT_POST]		= FALSE;
 // 			$option[CURLOPT_HTTPGET]	= TRUE;
@@ -320,8 +320,9 @@ class RequestAbstract implements IRequest {
 			foreach( $this->files as $key => $file ) {
 					$files[$key] = new \CURLFile( $file['path'], $file['mime'] ); 
 			}
-			if ( !empty( $this->getPosts() )) {
-				foreach( $this->getPosts() as $k=>$v ) {
+			$posts = $this->getPosts();
+			if ( !empty( $posts )) {
+				foreach( $posts as $k=>$v ) {
 					$files[$k] = $v;
 				}
 			}
@@ -358,8 +359,9 @@ class RequestAbstract implements IRequest {
 			$str .= $k.': '.$v .$enter;
 		}
 		$str .= $enter.$enter;
-		if ( !empty($this->getPosts() ) ) {
-			$this->setBody( http_build_query($this->getPosts()) );
+		$posts = $this->getPosts();
+		if ( !empty( $posts ) ) {
+			$this->setBody( http_build_query($posts) );
 		}
 		$str .= $this->getBody();
 		return $str;
