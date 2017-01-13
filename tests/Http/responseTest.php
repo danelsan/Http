@@ -9,6 +9,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 	}
 	public function testResponseConstruct() {
 		$response = Response::Http ();
+		
+		$this->assertTrue( $response instanceof Http\ResponseHttp );
 		$true =  is_string( $response->getStatus () );
 		$this->assertTrue ( $true );
 		$this->assertEquals ( $response->getStatusCode (), 200);
