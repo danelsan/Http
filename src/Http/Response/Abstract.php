@@ -55,7 +55,7 @@ class ResponseAbstract implements IResponse {
 	 */
 	public function __toString() {
 		$enter = "\n\r";
-		$str = 'HTTP/1.1 '.$this->getStatus()->getCode(). ' ' . $this->getStatus()->getStatus() .$enter;
+		$str = 'HTTP/1.1 '.$this->getStatusCode(). ' ' . $this->getStatus() .$enter;
 		foreach ($this->getHeaders() as $k=>$v) {
 			$str .= $k.': '.$v .$enter;
 		}
