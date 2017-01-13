@@ -1,6 +1,6 @@
 {
 	"name": "danelsan/http",
-	"version": "1.0.1",
+	"version": "1.0.2",
  	"license": "GPL-3.0+",
 	"description": "Http Protocol for get a Request or sending a Response",
 	"autoload": {
