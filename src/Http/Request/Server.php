@@ -9,7 +9,7 @@ class RequestServer extends RequestAbstract {
 	}
 	
 	private function createServer() {
-		 ( isset($_SERVER['HTTP_HOST']) ) {
+		if ( isset($_SERVER['HTTP_HOST']) ) {
                         if ( $_SERVER['HTTP_HOST'] !== $_SERVER ['SERVER_NAME'] )
                                 $url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER ['REQUEST_URI'];
                         else
