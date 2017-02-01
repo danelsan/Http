@@ -9,7 +9,14 @@ class RequestServer extends RequestAbstract {
 	}
 	
 	private function createServer() {
-		$url = "http://" . $_SERVER ['SERVER_NAME'] . $_SERVER ['REQUEST_URI'];
+		 ( isset($_SERVER['HTTP_HOST']) ) {
+                        if ( $_SERVER['HTTP_HOST'] !== $_SERVER ['SERVER_NAME'] )
+                                $url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER ['REQUEST_URI'];
+                        else
+                                $url = "http://" . $_SERVER ['SERVER_NAME'] . $_SERVER ['REQUEST_URI'];
+                } else {
+                        $url = "http://" . $_SERVER ['SERVER_NAME'] . $_SERVER ['REQUEST_URI'];
+                }
 		
 		parent::__construct( $url, $_SERVER['REQUEST_METHOD'] );
 		
