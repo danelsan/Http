@@ -1,5 +1,6 @@
 <?php
 use Http\Url;
+use Http\Request;
 
 class urlTest extends PHPUnit_Framework_TestCase {
 	private $urls;
@@ -41,8 +42,6 @@ class urlTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals ( $this->urls [3]->validated (), TRUE );
 	}
 	public function testUrlGet() {
-
-var_dump( $this->test_urls);
 		$this->assertEquals ( $this->urls [0]->get (), $this->test_urls [0] );
 		$this->assertEquals ( $this->urls [1]->get (), $this->test_urls [1] );
 		$this->assertEquals ( $this->urls [2]->get (), $this->test_urls [2] );
@@ -75,5 +74,19 @@ var_dump( $this->test_urls);
 			$ctrl = true;
 		}
 		$this->assertTrue($ctrl);
+	}
+
+	public function testUrlErrorRequest() {
+		$url_not = 'abckd';
+		try {
+			$request = Request::Http( $url_not );
+//			$url = new Url( $url_not );
+			$this->assertTrue(false);
+		} catch ( \Exception $e ) {
+			$this->assertTrue(true);
+		}
+	//	$request = Request::Http( $url_not );
+//		$url = $request->getURL();
+//		var_dump($url);
 	}
 }

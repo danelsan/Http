@@ -32,7 +32,8 @@ class RequestAbstract implements IRequest {
 			$this->validate = TRUE;
 		}
 		catch (\Exception $e ) {
-			
+			$this->url = new Url( ' ' );
+			$this->validate = FALSE;			
 		}
 		$this->agent = "Agent Request Anonym";
 		$this->headers = array();
