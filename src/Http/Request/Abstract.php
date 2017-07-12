@@ -196,6 +196,7 @@ class RequestAbstract implements IRequest {
 		$option[CURLOPT_URL] 			= $this->url->get();
 		$option[CURLOPT_USERAGENT] 		= $this->agent;
 		$option[CURLOPT_HEADER]			= 1;
+		$option[CURLOPT_FOLLOWLOCATION] 	= $this->follow;
 		$option[CURLOPT_HTTPHEADER]		= $this->getHeaders();
 
 		$posts = $this->getPosts();
