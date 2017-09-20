@@ -9,7 +9,11 @@ class RequestServer extends RequestAbstract {
 	}
 	
 	private function createServer() {
-		$schema = $_SERVER["REQUEST_SCHEME"];
+		if ( isset($_SERVER["REDIRECT_HTTPS"]) && ( $_SERVER["REDIRECT_HTTPS"] != 'on')  )
+			$schema = $_SERVER["REQUEST_SCHEME"];
+		else
+			$schema = 'https';
+
 		if ( isset($_SERVER['HTTP_HOST']) ) {
                         if ( $_SERVER['HTTP_HOST'] !== $_SERVER ['SERVER_NAME'] )
                                 $url = $schema . "://" . $_SERVER['HTTP_HOST'] . $_SERVER ['REQUEST_URI'];
