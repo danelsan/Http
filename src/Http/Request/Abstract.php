@@ -320,7 +320,7 @@ class RequestAbstract implements IRequest {
 
 			$files = array();
 			foreach( $this->files as $key => $file ) {
-					 $files[$key] = new \CURLFile( str_replace('\\', '/', $file['path']), "application/octet-stream" )
+					 $files[$key] = new \CURLFile( str_replace('\\', '/', $file['path']), "application/octet-stream" );
 //				$files[$key] = new \CURLFile( $file['path'], $file['mime'] ); 
 			}
 			$posts = $this->getPosts();
