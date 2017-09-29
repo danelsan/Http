@@ -329,7 +329,7 @@ class RequestAbstract implements IRequest {
 					$files[$k] = $v;
 				}
 			}
-			if ( version_compare(PHP_VERSION, '7.1.0', '<' )
+			if ( \version_compare(PHP_VERSION, '7.1.0', '<' ) )
 				$option[CURLOPT_SAFE_UPLOAD] = false;
 		
 			$option[CURLOPT_POSTFIELDS] =  $files ;
