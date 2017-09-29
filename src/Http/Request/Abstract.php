@@ -320,7 +320,8 @@ class RequestAbstract implements IRequest {
 
 			$files = array();
 			foreach( $this->files as $key => $file ) {
-					$files[$key] = new \CURLFile( $file['path'], $file['mime'] ); 
+					 $files[$key] = new \CURLFile( str_replace('\\', '/', $file['path']), "application/octet-stream" )
+//				$files[$key] = new \CURLFile( $file['path'], $file['mime'] ); 
 			}
 			$posts = $this->getPosts();
 			if ( !empty( $posts )) {
@@ -328,7 +329,9 @@ class RequestAbstract implements IRequest {
 					$files[$k] = $v;
 				}
 			}
-			$option[CURLOPT_SAFE_UPLOAD] = false;
+			if ( version_compare(PHP_VERSION, '7.1.0', '<' )
+				$option[CURLOPT_SAFE_UPLOAD] = false;
+		
 			$option[CURLOPT_POSTFIELDS] =  $files ;
 		}
 
