@@ -4,7 +4,7 @@ namespace Http;
 
 class Method {
 	private $method;
-	private $valid_methods = array('GET','POST','PUT','DELETE');
+	private $valid_methods = array('GET','POST','PUT','DELETE','OPTIONS');
 	
 	/**
 	 * The url parameter is compresive of query string
