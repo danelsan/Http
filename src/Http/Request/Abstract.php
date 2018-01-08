@@ -13,7 +13,7 @@ class RequestAbstract implements IRequest {
 	private $files;
 	private $headers;
 	private $body;
-// 	private $referrer;
+ 	private $referrer;
 // 	private $remote_address;
 	private $validate = FALSE;
 	private $follow;
@@ -96,6 +96,14 @@ class RequestAbstract implements IRequest {
 			return $this->post;
 		else
 			return (isset ( $this->post [$key] ) ? $this->post [$key] : NULL);
+	}
+
+ 	public function setReferrer( $referrer ) {
+		$this->referrer = $referrer;
+	}
+
+	public function getReferrer( ) {
+		return $this->referrer;
 	}
 	
 	/**
@@ -377,11 +385,18 @@ class RequestAbstract implements IRequest {
  * Function return header from $_SERVER['HTTP_...']
  */
 if (! function_exists ( 'getallheaders' )) {
-	function getallheaders() {
-		$headers = '';
+	function getallheaders() { 
+		$headers = array();
+	        if (  empty($_SERVER) )
+			return $headers;
+	
 		foreach ( $_SERVER as $name => $value ) {
-			if (substr ( $name, 0, 5 ) == 'HTTP_') {
-				$headers [str_replace ( ' ', '-', ucwords ( strtolower ( str_replace ( '_', ' ', substr ( $name, 5 ) ) ) ) )] = $value;
+			try {
+				if (substr ( $name, 0, 5 ) == 'HTTP_') {
+					$headers [str_replace ( ' ', '-', ucwords ( strtolower ( str_replace ( '_', ' ', substr ( $name, 5 ) ) ) ) )] = $value;
+ 				}
+			} catch ( \Exception $e ) {
+				continue;	
 			}
 		}
 		return $headers;
