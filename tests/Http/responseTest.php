@@ -1,9 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Http\Response;
 use Http\HttpStatusCode;
 
-class ResponseTest extends PHPUnit_Framework_TestCase {
+class ResponseTest extends TestCase {
 	private $response;
 	public function setUp() {
 	}

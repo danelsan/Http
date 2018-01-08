@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Http\Response;
 
-class ResponseJsonTest extends PHPUnit_Framework_TestCase {
+class ResponseJsonTest extends TestCase {
 	private $response;
 	public function setUp() {
 	}

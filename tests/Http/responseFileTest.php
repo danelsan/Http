@@ -1,8 +1,8 @@
 <?php
-
+use PHPUnit\Framework\TestCase;
 use Http\Response;
 
-class ResponseFileTest extends PHPUnit_Framework_TestCase {
+class ResponseFileTest extends TestCase {
 	private $response;
 	public function setUp() {
 		$file = 'people.txt';

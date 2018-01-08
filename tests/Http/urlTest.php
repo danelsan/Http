@@ -1,8 +1,10 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
 use Http\Url;
 use Http\Request;
 
-class urlTest extends PHPUnit_Framework_TestCase {
+class urlTest extends TestCase {
 	private $urls;
 	private $test_urls;
 	public function setUp() {
@@ -68,7 +70,7 @@ class urlTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($ctrl);
 		
 		try {
-			$this->urls[0]->setQuery('db', new Url() );
+			$this->urls[0]->setQuery('db', new Url(null) );
 			$ctrl = false;
 		} catch (\Exception $e) {
 			$ctrl = true;

@@ -1,7 +1,9 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
 use Http\Request;
 
-class RequestTest extends PHPUnit_Framework_TestCase {
+class RequestTest extends TestCase {
 	private $request;
 	public function setUp() {
 		$_SERVER ['HTTP_HOST'] = 'www.example.pippo';
@@ -37,7 +39,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 		$url ['valid'] = "http://www.example.com?pippo=d&o=pil";
 		$url ['fail'] = NULL;
 		try {
-			$request = Request::Http ();
+			$request = Request::Http ( null );
 			$fail = TRUE;
 		} catch ( \Exception $e ) {
 			$fail = FALSE;

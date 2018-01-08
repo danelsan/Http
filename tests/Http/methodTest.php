@@ -1,6 +1,8 @@
 <?php
+use PHPUnit\Framework\TestCase;
 use Http\Method;
-class MethodTest extends PHPUnit_Framework_TestCase {
+
+class MethodTest extends TestCase {
 	private $methods;
 	private $invalid;
 	public function setUp() {
