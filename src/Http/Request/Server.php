@@ -9,7 +9,7 @@ class RequestServer extends RequestAbstract {
 	}
 	
 	private function createServer() {
-		if (  ( isset($_SERVER["REDIRECT_HTTPS"]) && ( $_SERVER["REDIRECT_HTTPS"] == 'on') ) || $_SERVER["HTTPS"] == 'on' )
+		if (  ( isset($_SERVER["REDIRECT_HTTPS"]) && ( $_SERVER["REDIRECT_HTTPS"] == 'on') ) || ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' ))
 			$schema = 'https';
 		else
 			$schema = $_SERVER["REQUEST_SCHEME"];
